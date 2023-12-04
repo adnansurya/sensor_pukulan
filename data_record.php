@@ -4,7 +4,19 @@
 <head>
 
     <title>Admin - </title>
-    <?php include_once 'template/head.php'; ?>
+    <?php include_once 'template/head.php';
+    require_once 'koneksi.php';
+    session_start();
+
+    if (!isset($_SESSION['username'])) {
+        header("Location: login.php");
+        exit();
+    } ?>
+
+    <link href="vendor/DataTables-1.13.6/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="vendor/Buttons-2.4.2/css/buttons.bootstrap4.min.css" rel="stylesheet">
+    <link href="vendor/Responsive-2.5.0/css/responsive.bootstrap4.min.css" rel="stylesheet">
+
 
 </head>
 
@@ -24,14 +36,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-danger topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars" style="color: #e7e3e3;"></i>
-                    </button>
-
-                </nav>
+                <?php include_once 'template/topbar.php'; ?>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -128,7 +133,16 @@
         <!-- Custom scripts for all pages-->
         <script src="js/sb-admin-2.min.js"></script>
 
-        <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.5/b-2.4.1/b-html5-2.4.1/b-print-2.4.1/r-2.5.0/datatables.min.js"></script>
+        <script src="vendor/JSZip-3.10.1/jszip.min.js"></script>
+        <script src="vendor/pdfmake-0.2.7/pdfmake.min.js"></script>
+        <script src="vendor/pdfmake-0.2.7/vfs_fonts.js"></script>
+        <script src="vendor/DataTables-1.13.6/js/jquery.dataTables.min.js"></script>
+        <script src="vendor/DataTables-1.13.6/js/dataTables.bootstrap4.min.js"></script>
+        <script src="vendor/Buttons-2.4.2/js/dataTables.buttons.min.js"></script>
+        <script src="vendor/Buttons-2.4.2/js/buttons.bootstrap4.min.js"></script>
+        <script src="vendor/Buttons-2.4.2/js/buttons.html5.min.js"></script>
+        <script src="vendor/Responsive-2.5.0/js/dataTables.responsive.min.js"></script>
+        <script src="vendor/Responsive-2.5.0/js/responsive.bootstrap4.min.js"></script>
 
         <script>
             $('#tableId').DataTable({
