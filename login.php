@@ -29,6 +29,8 @@
         if ($result->num_rows > 0) {
             $row = mysqli_fetch_assoc($result);
             $_SESSION['username'] = $row['username'];
+            $_SESSION['nama'] = $row['nama'];
+            $_SESSION['id_role'] = $row['id_role'];
             header("Location: index.php");
             exit();
         } else {
