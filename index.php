@@ -87,7 +87,24 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <div class="row" id="resultText">
+                        <div class="col-4 text-center">
+                            <h5>Berat</h5>
+                            <h2 id="beratVal">0.0</h2>
+                        </div>
+                        <div class="col-4 text-center">
+                            <h5>Kecepatan</h5>
+                            <h2 id="kecepatanVal">0.0</h2>
+                        </div>
+                        <div class="col-4 text-center">
+                            <h5>Jarak</h5>
+                            <h2 id="jarakVal">0.0</h2>
+                        </div>
+                    </div>
+
+                    <div class="spinner-border" role="status" id="spinnerInput">
+                        <span class="sr-only">Loading...</span>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -107,25 +124,73 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
     <script>
+        $('#resultText').hide();
+        let id_record = null;
+        let intervalCek = null;
+        let dataAvailable = false;
+
+        function cekKategori() {
+            $.get("api/get_single_data.php", {
+                'table': 'data_record',
+                'col': 'id_record',
+                'id': id_record
+            }, function(result) {
+                // console.log(result);
+                let recordObj = JSON.parse(result);
+                let kategori = recordObj['kategori'];
+                let berat_pukulan = recordObj['berat_pukulan'];
+                let kecepatan_pukulan = recordObj['kecepatan_pukulan'];
+                let jarak = recordObj['jarak'];
+                console.log(kategori);
+                if (kategori != 'Waiting') {
+                    $('#beratVal').text(berat_pukulan);
+                    $('#kecepatanVal').text(kecepatan_pukulan);
+                    $('#jarakVal').text(jarak);
+                    $('#spinnerInput').hide();
+                    $('#resultText').show();
+                    clearInterval(intervalCek);
+                    dataAvailable = true;
+                }
+
+
+            });
+        }
+
+
+
         $('#exampleModal').on('show.bs.modal', function(event) {
             $.post("forms/pukulan_data.php", {
                 'act': 'new',
-                'id_user': '<?php echo $_SESSION['id_user'] ?>'                 
+                'id_user': '<?php echo $_SESSION['id_user'] ?>'
             }, function(result) {
                 // $("").html(result);
-                alert(result);
+                // alert(result);
+
+                id_record = parseInt(result);
+                console.log(id_record);
+                if (!isNaN(id_record)) {
+                    intervalCek = setInterval(cekKategori, 1000);
+                }
             });
+
         })
 
         $("#exampleModal").on("hide.bs.modal", function() {
-            $.post("forms/pukulan_data.php", {
-                'act': 'cancel',
-                'id_user': '<?php echo $_SESSION['id_user'] ?>'           
-            }, function(result) {
-                // $("").html(result);
-                alert(result);
-            });
+            clearInterval(intervalCek);
+            if (dataAvailable == false) {
+                $.post("forms/pukulan_data.php", {
+                    'act': 'cancel',
+                    'id_user': '<?php echo $_SESSION['id_user'] ?>'
+                }, function(result) {
+                    console.log(result);
+                });
+            }
+
         });
+
+        function waitingSensor() {
+
+        }
     </script>
 
 </body>

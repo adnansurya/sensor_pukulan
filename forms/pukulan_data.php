@@ -5,10 +5,10 @@ $user_id = $_POST['id_user'];
 
 include_once "../koneksi.php";
 
-function getLastRecordbyUserId($userId, $conn){
+function getLastRecord($conn){
     $sql = "SELECT * FROM data_record ORDER BY id_record DESC LIMIT 1";
     $result = mysqli_query($conn, $sql );
-    $row = mysqli_fetch_row($result);
+    $row = mysqli_fetch_assoc($result);
     return $row['id_record'];
 }
 
@@ -17,7 +17,8 @@ if ($act == 'new') {
     $sql = "INSERT INTO data_record (id_user, berat_pukulan, kecepatan_pukulan, jarak, kategori) VALUES ('" . $user_id . "', 0.0, 0.0, 0.0, 'Waiting')";
 
     if ($koneksi->query($sql) === TRUE) {
-        echo "Success";
+        $last_id = getLastRecord($koneksi);
+        echo ($last_id);
         // header("Location: ../index.php");
         exit();
     } else {
