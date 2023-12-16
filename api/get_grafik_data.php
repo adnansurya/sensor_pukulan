@@ -4,7 +4,8 @@ include_once '../koneksi.php';
 
 
 
-function convertMysqlDateTimeToUnixTimeStamp($date) {
+function convertMysqlDateTimeToUnixTimeStamp($oldDate) {
+    $date= date('Y-m-d H:i:s', strtotime($oldDate. ' -7 hours'));
     $yr=strval(substr($date,0,4));
     $mo=strval(substr($date,5,2));
     $da=strval(substr($date,8,2));
