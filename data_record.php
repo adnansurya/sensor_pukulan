@@ -54,7 +54,11 @@
                                                 <tr>
                                                     <th scope="col">#</th>
                                                     <th scope="col">Timestamp</th>
-                                                    <th scope="col">Nama</th>
+                                                    <?php
+                                                    if ($_SESSION['id_role'] == 1) {
+                                                        echo '<th scope="col">Nama</th>';
+                                                    }
+                                                    ?>
                                                     <th scope="col">Berat Pukulan</th>
                                                     <th scope="col">Kecepatan Pukulan</th>
                                                     <th scope="col">Jarak </th>
@@ -63,28 +67,40 @@
                                             </thead>
                                             <tbody id="tableData">
                                                 <?php
-                                                // require_once 'koneksi.php';
+                                                require_once 'koneksi.php';
 
-                                                // $sql = "SELECT * FROM hasil_import";
-                                                // $result = $koneksi->query($sql);
+                                                $sql_filter = "";
 
-                                                // if ($result->num_rows > 0) {
-                                                //     // output data of each row
-                                                //     while ($row = $result->fetch_assoc()) {
-                                                //         $subnet_str =  $row["subnet"];
-                                                //         $subnet_arr = explode("\\", $subnet_str);
-                                                //         echo '<tr>';
-                                                //         echo '<td>' . $row["id_row"] . '</td>';
-                                                //         echo '<td>' . $subnet_arr[2] . '</td>';
-                                                //         echo '<td>' . $row["ne_ip"] . '</td>';
-                                                //         echo '<td>' . $row["tx_power"] . '</td>';
-                                                //         echo '<td>' . $row["rx_power"] . '</td>';
-                                                //         echo '<td>' . $row["device_name"] . '</td>';
-                                                //         echo '<td>' . $row["last_uptime"] . '</td>';
-                                                //         echo '</tr>';
-                                                //     }
-                                                // }
-                                                // $koneksi->close();
+                                                if (!($_SESSION['id_role'] == 1)) {
+                                                    $sql_filter = " AND user.id_user=" . $_SESSION['id_user'];
+                                                }
+
+
+                                                $sql = "SELECT data_record.*, user.nama FROM data_record INNER JOIN user ON data_record.id_user=user.id_user WHERE data_record.kategori != 'Waiting'" . $sql_filter;
+                                                $result = mysqli_query($koneksi, $sql);
+                                                $nomor = 0;
+
+                                                // echo $sql;
+
+                                                if ($result->num_rows > 0) {
+
+                                                    while ($row = $result->fetch_assoc()) {
+                                                        $nomor++;
+                                                        echo '<tr>';
+                                                        echo '<td>' . $nomor . '</td>';
+                                                        echo '<td>' . $row['waktu'] . '</td>';
+                                                        
+                                                        if ($_SESSION['id_role'] == 1) {
+                                                            echo '<td>' . $row["nama"] . '</td>';
+                                                        }
+                                                        echo '<td>' . $row["berat_pukulan"] . '</td>';
+                                                        echo '<td>' . $row["kecepatan_pukulan"] . '</td>';
+                                                        echo '<td>' . $row["jarak"] . '</td>';
+                                                        echo '<td>' . $row["kategori"] . '</td>';
+                                                        echo '</tr>';
+                                                    }
+                                                }
+                                                $koneksi->close();
 
                                                 ?>
                                             </tbody>

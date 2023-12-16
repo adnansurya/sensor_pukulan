@@ -87,7 +87,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="row" id="resultText">
+                    <div class=" row" id="resultText">
                         <div class="col-4 text-center">
                             <h5>Berat</h5>
                             <h2 id="beratVal">0.0</h2>
@@ -102,9 +102,16 @@
                         </div>
                     </div>
 
-                    <div class="spinner-border" role="status" id="spinnerInput">
-                        <span class="sr-only">Loading...</span>
+                    <div id="spinnerInput">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <p>Menunggu Input dari Sensor</p>
                     </div>
+
+
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
