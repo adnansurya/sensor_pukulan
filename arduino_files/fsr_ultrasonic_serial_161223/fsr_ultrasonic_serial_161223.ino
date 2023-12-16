@@ -74,7 +74,7 @@ void loop(void) {
       timeStop = millis();
       beratTinju = lastReading;
       durasiTinju = (timeStop - timeStart);  //detik
-      jarakTinjuMeter = float(jarakTinju) / 100.0;
+      jarakTinjuMeter = float(jarakTinju) / 100.0; //meter
       kecepatan = jarakTinjuMeter / (float(durasiTinju)/1000.0);  // m/s
       kecepatan = kecepatan * 3.6; // km / h
 
