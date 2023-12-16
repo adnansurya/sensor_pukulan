@@ -93,9 +93,9 @@
                                                         if ($_SESSION['id_role'] == 1) {
                                                             echo '<td>' . $row["nama"] . '</td>';
                                                         }
-                                                        echo '<td>' . $row["berat_pukulan"] . '</td>';
-                                                        echo '<td>' . $row["kecepatan_pukulan"] . '</td>';
-                                                        echo '<td>' . $row["jarak"] . '</td>';
+                                                        echo '<td>' . $row["berat_pukulan"] . ' <small>kg</small></td>';
+                                                        echo '<td>' . $row["kecepatan_pukulan"] . ' <small>km/h</small></td>';
+                                                        echo '<td>' . $row["jarak"] . ' <small>cm</small></td>';
                                                         echo '<td>' . $row["kategori"] . '</td>';
                                                         echo '</tr>';
                                                     }

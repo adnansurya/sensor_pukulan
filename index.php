@@ -91,14 +91,17 @@
                         <div class="col-4 text-center">
                             <h5>Berat</h5>
                             <h2 id="beratVal">0.0</h2>
+                            <!-- <p>kg</p> -->
                         </div>
                         <div class="col-4 text-center">
                             <h5>Kecepatan</h5>
                             <h2 id="kecepatanVal">0.0</h2>
+                            <!-- <p>km/h</p> -->
                         </div>
                         <div class="col-4 text-center">
                             <h5>Jarak</h5>
                             <h2 id="jarakVal">0.0</h2>
+                            <!-- <p>cm</p> -->
                         </div>
                     </div>
 
@@ -150,9 +153,9 @@
                 let jarak = recordObj['jarak'];
                 console.log(kategori);
                 if (kategori != 'Waiting') {
-                    $('#beratVal').text(berat_pukulan);
-                    $('#kecepatanVal').text(kecepatan_pukulan);
-                    $('#jarakVal').text(jarak);
+                    $('#beratVal').html(berat_pukulan + '<small> kg</small>');
+                    $('#kecepatanVal').html(kecepatan_pukulan + '<small> km/h</small>');
+                    $('#jarakVal').html(jarak + '<small> cm</small>');
                     $('#spinnerInput').hide();
                     $('#resultText').show();
                     clearInterval(intervalCek);
@@ -191,6 +194,8 @@
                 }, function(result) {
                     console.log(result);
                 });
+            }else{
+                window.location.reload();
             }
 
         });
