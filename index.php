@@ -55,7 +55,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body d-flex justify-content-center">
-                                    <div id="chartContainer" style="height: 500px; width: 100%;"></div>
+                                    <div id="chartContainer" style="height: 400px; width: 100%;"></div>
                                 </div>
                             </div>
                         </div>
@@ -164,9 +164,9 @@
                     let jarak = recordObj['jarak'];
                     console.log(kategori);
                     if (kategori != 'Waiting') {
-                        $('#beratVal').html(berat_pukulan + '<small> kg</small>');
-                        $('#kecepatanVal').html(kecepatan_pukulan + '<small> km/h</small>');
-                        $('#jarakVal').html(jarak + '<small> cm</small>');
+                        $('#beratVal').html(berat_pukulan + '<p><small> kg</small></p>');
+                        $('#kecepatanVal').html(kecepatan_pukulan + '<p><small> km/h</small></p>');
+                        $('#jarakVal').html(jarak + '<p><small> cm</small></p>');
                         $('#spinnerInput').hide();
                         $('#resultText').show();
                         clearInterval(intervalCek);
@@ -221,24 +221,33 @@
                     axisX: {
                         title: "time",
                         // gridThickness: 2,
-                        // interval: 1,
-                        // intervalType: "day",
-                        valueFormatString: "DDDD MMM YYYY HH:mm:ss"
-                        // labelAngle: -20
+                        // interval: 10,
+                        // intervalType: "hour",
+                        valueFormatString: "DD-MM-YYYY HH:mm",
+                        labelAngle: -50
                     },
 
                     data: [{
                         type: "line",
                         xValueType: "dateTime",
-                        dataPoints: arr1
+                        dataPoints: arr1,
+                        showInLegend: true,
+                        markerType: "triangle",
+                        legendText: "kecepatan"
                     }, {
-                        type: "column",
+                        type: "line",
                         xValueType: "dateTime",
-                        dataPoints: arr2
+                        dataPoints: arr2,
+                        showInLegend: true,
+                        markerType: "cross",
+                        legendText: "jarak",
                     }, {
-                        type: "area",
+                        type: "line",
                         xValueType: "dateTime",
-                        dataPoints: arr3
+                        dataPoints: arr3,
+                        showInLegend: true,
+                        markerType: "square",
+                        legendText: "berat",
                     }]
                 });
                 // console.log(dataArr);
@@ -247,7 +256,7 @@
 
             window.onload = function() {
                 $.get("api/get_grafik_data.php", {
-                    'id_user': 2
+                    'id_user': <?php echo $_SESSION['id_user']; ?>
                 }, function(result) {
                     // console.log(result);
                     let jsonArr = JSON.parse(result);
@@ -255,12 +264,18 @@
                     let beratArr = [];
                     let jarakArr = [];
                     for (let i = 0; i < jsonArr.length; i++) {
-                        oneKecepatan = oneBerat = oneJarak = {};
-                        oneKecepatan['x'] = oneBerat['x']  = oneJarak['x']= parseInt(jsonArr[i]['timestamp']) * 1000;
+                        oneKecepatan = {};
+                        oneKecepatan['x'] = parseInt(jsonArr[i]['timestamp']) * 1000;
                         oneKecepatan['y'] = parseFloat(jsonArr[i]['kecepatan_pukulan']);
                         kecepatanArr.push(oneKecepatan);
+
+                        oneBerat = {};
+                        oneBerat['x'] = parseInt(jsonArr[i]['timestamp']) * 1000;
                         oneBerat['y'] = parseFloat(jsonArr[i]['berat_pukulan']);
                         beratArr.push(oneBerat);
+
+                        oneJarak = {};
+                        oneJarak['x'] = parseInt(jsonArr[i]['timestamp']) * 1000;
                         oneJarak['y'] = parseFloat(jsonArr[i]['jarak']);
                         jarakArr.push(oneJarak);
 
@@ -268,6 +283,7 @@
                     console.log(kecepatanArr);
                     console.log(beratArr);
                     console.log(jarakArr);
+
                     plotChartbyData(kecepatanArr, jarakArr, beratArr);
                 });
 
