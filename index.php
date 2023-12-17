@@ -16,7 +16,7 @@
     }
     ?>
 
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 </head>
 
@@ -45,10 +45,30 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Home</h1>
                     <div class="row my-4">
-                        <div class="col-12">
-                            <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
-                                <i class="fa fa-plus"> </i> Tambah Data
-                            </button>
+                        <div class="col-4">
+                            <?php
+                            if ($_SESSION['id_role'] == 1) {
+                                $sql = "SELECT * FROM user";
+                                $result = $koneksi->query($sql);
+
+                                if ($result) {
+                                    echo '<select class="form-control" name="user_selector" id="user_selector">';
+                                    echo '<option value="" disabled selected hidden>Pilih User</option>';
+                                    while ($row = $result->fetch_assoc()) {
+                                        if ($row['id_role'] != 1) {
+                                            echo '<option value="' . $row['id_user'] . '">' . $row['nama'] . '</option>';
+                                        }
+                                    }
+                                    echo '</select>';
+                                }
+                                $koneksi->close();
+                            } else {
+                                echo ` <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                                        <i class="fa fa-plus"> </i> Tambah Data
+                                    </button>`;
+                            }
+                            ?>
+
                         </div>
                     </div>
                     <div class="row">
@@ -120,10 +140,6 @@
                             </div>
                             <p>Menunggu Input dari Sensor</p>
                         </div>
-
-
-
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -144,7 +160,10 @@
         <script src="js/sb-admin-2.min.js"></script>
 
         <script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
         <script>
+            $('#user_selector').select2();
             $('#resultText').hide();
             let id_record = null;
             let intervalCek = null;
@@ -254,9 +273,9 @@
                 chart.render();
             }
 
-            window.onload = function() {
+            function loadChart(id_user) {
                 $.get("api/get_grafik_data.php", {
-                    'id_user': <?php echo $_SESSION['id_user']; ?>
+                    'id_user': id_user
                 }, function(result) {
                     // console.log(result);
                     let jsonArr = JSON.parse(result);
@@ -280,14 +299,25 @@
                         jarakArr.push(oneJarak);
 
                     }
-                    console.log(kecepatanArr);
-                    console.log(beratArr);
-                    console.log(jarakArr);
+                    // console.log(kecepatanArr);
+                    // console.log(beratArr);
+                    // console.log(jarakArr);
 
                     plotChartbyData(kecepatanArr, jarakArr, beratArr);
                 });
+            }
+
+            window.onload = function() {
+
+                loadChart(<?php echo $_SESSION['id_user']; ?>);
 
             }
+
+            $('#user_selector').on('change', function() {
+                // alert(this.value);
+                let user_id = this.value;
+                loadChart(user_id);
+            });
         </script>
 
 </body>
