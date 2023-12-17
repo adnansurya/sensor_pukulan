@@ -182,6 +182,7 @@
 
                 </div>
             </div>
+        </div>
 
 
             <!-- Bootstrap core JavaScript-->

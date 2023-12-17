@@ -39,7 +39,17 @@ if ($act == 'new') {
     } else {
         echo "Error deleting record: " . $koneksi->error;
     }
+}  elseif ($act == 'delete') {  
+
+    $sql = "DELETE FROM data_record WHERE id_record=" .  $_POST['id_record'];
+    if ($koneksi->query($sql) === TRUE) {
+        echo "Success";
+        header("Location: ../data_record.php");
+    } else {
+        echo "Error deleting record: " . $koneksi->error;
+    }
 } 
+
 
 
 
