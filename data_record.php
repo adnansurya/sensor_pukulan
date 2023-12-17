@@ -224,7 +224,8 @@
 
         <script>
             $('#tableId').DataTable({
-                responsive: true
+                responsive: true,
+                order: [[0, 'desc']]
 
             });
 
