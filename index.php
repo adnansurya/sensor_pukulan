@@ -46,7 +46,7 @@
                     <h1 class="h3 mb-4 text-gray-800">Home</h1>
                     <div class="row my-4">
                         <div class="col-4">
-                            <?php
+                            <?php                            
                             if ($_SESSION['id_role'] == 1) {
                                 $sql = "SELECT * FROM user";
                                 $result = $koneksi->query($sql);
@@ -63,9 +63,9 @@
                                 }
                                 $koneksi->close();
                             } else {
-                                echo ` <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                                echo '<button class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
                                         <i class="fa fa-plus"> </i> Tambah Data
-                                    </button>`;
+                                    </button>';
                             }
                             ?>
 
@@ -183,7 +183,7 @@
                     let jarak = recordObj['jarak'];
                     console.log(kategori);
                     if (kategori != 'Waiting') {
-                        $('#beratVal').html(berat_pukulan + '<p><small> kg</small></p>');
+                        $('#beratVal').html(berat_pukulan + '<p><small> gram</small></p>');
                         $('#kecepatanVal').html(kecepatan_pukulan + '<p><small> km/h</small></p>');
                         $('#jarakVal').html(jarak + '<p><small> cm</small></p>');
                         $('#spinnerInput').hide();
