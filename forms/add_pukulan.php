@@ -7,8 +7,8 @@ $sql = "SELECT * FROM data_record ORDER BY id_record DESC LIMIT 1";
 $result = mysqli_query($koneksi, $sql);
 $row = mysqli_fetch_assoc($result);
 
-$batasBeratBawah = 200;
-$batasBeratAtas = 400;
+$batasBeratBawah = 3000;
+$batasBeratAtas = 5000;
 
 $addId = $row['id_record'];
 
