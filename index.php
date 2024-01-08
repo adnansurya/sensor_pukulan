@@ -16,8 +16,9 @@
     }
     ?>
 
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
 
+    <link rel="stylesheet" href="vendor/select2/select2.min.css">
 </head>
 
 <body id="page-top">
@@ -159,8 +160,11 @@
         <!-- Custom scripts for all pages-->
         <script src="js/sb-admin-2.min.js"></script>
 
-        <script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <!-- <script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script> -->        
+        <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
+
+        <script src="vendor/canvasjs/canvasjs.min.js"></script>
+        <script src="vendor/select2/select2.min.js"></script>
 
         <script>
             $('#user_selector').select2();
