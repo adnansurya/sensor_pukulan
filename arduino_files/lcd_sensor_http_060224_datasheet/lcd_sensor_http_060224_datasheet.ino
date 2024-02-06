@@ -220,7 +220,7 @@ void sendDataToWeb(String datanya) {
 }
 
 double voltToWeight(double volt) {
-  double weight = (3.08249054 * pow(10, -20) * pow(volt, 6)) - (8.41559115 * pow(10, -16) * pow(volt, 5)) + (8.04008824 * pow(10, -12) * pow(volt, 4)) - (2.65650155 * pow(10, -8) * pow(volt, 3)) - (4.29623042 * pow(10, -5) * pow(volt, 2)) + (5.40138797 * pow(10, -1) * pow(volt, 1)) - (4.53841331 * pow(10, 1));
+  double weight = -(7.26821316 * pow(10, -20) * pow(volt, 6)) + (2.63919774 * pow(10, -15) * pow(volt, 5)) - (3.83596117 * pow(10, -11) * pow(volt, 4)) + (2.84996628 * pow(10, -7) * pow(volt, 3)) - (1.14896641 * pow(10, -3) * pow(volt, 2)) + (2.50237048 * pow(10, 0) * pow(volt, 1)) + (7.78289474 * pow(10, 1));
   return weight;
 }
 

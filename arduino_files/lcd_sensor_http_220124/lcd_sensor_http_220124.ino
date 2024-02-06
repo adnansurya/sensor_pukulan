@@ -143,7 +143,7 @@ void loop() {
       Serial.println(jarakTinjuMeter);
       Serial.println("STOP TINJU");
       String barisAtas = "Berat: " + String(beratTinju) + " gram";
-      String barisBawah = "Kecepatan: " + String(kecepatan) + " m/s";
+      String barisBawah = "V:" + String(kecepatan) + " m/s| d: "+ String(jarak) + " cm";
       lcdPrint(barisAtas , barisBawah, 1000);
       adaTinju = false;
       startTinju = false;
