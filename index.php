@@ -269,7 +269,7 @@
                         text: "Grafik Kekuatan Pukulan"
                     },
                     axisX: {
-                        title: "time",
+                        title: "Data ke",
                         // gridThickness: 2,
                         // interval: 10,
                         // intervalType: "hour",
@@ -344,7 +344,7 @@
                         text: "Grafik Jarak Pukulan"
                     },
                     axisX: {
-                        title: "time",
+                        title: "Data ke",
                         // gridThickness: 2,
                         // interval: 10,
                         // intervalType: "hour",
@@ -373,7 +373,7 @@
                         text: "Grafik Berat Pukulan"
                     },
                     axisX: {
-                        title: "time",
+                        title: "Data ke",
                         // gridThickness: 2,
                         // interval: 10,
                         // intervalType: "hour",
