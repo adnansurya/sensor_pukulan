@@ -28,7 +28,10 @@ $sql = "SELECT data_record.*, user.nama FROM data_record INNER JOIN user ON data
 $result = $koneksi->query($sql);
 
 $rows = array();
+$nomor = 0;
 while($r = mysqli_fetch_assoc($result)) {
+    $nomor++;
+    $r['nomor'] = $nomor;
     $r['timestamp'] = convertMysqlDateTimeToUnixTimeStamp($r['waktu']);
     $rows[] = $r;
 }

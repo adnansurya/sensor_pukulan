@@ -81,6 +81,33 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body d-flex justify-content-center">
+                                    <div id="chartContainer2" style="height: 400px; width: 100%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body d-flex justify-content-center">
+                                    <div id="chartContainer3" style="height: 400px; width: 100%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body d-flex justify-content-center">
+                                    <div id="chartContainer4" style="height: 400px; width: 100%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- /.container-fluid -->
 
                 </div>
@@ -246,35 +273,127 @@
                         // gridThickness: 2,
                         // interval: 10,
                         // intervalType: "hour",
-                        valueFormatString: "DD-MM-YYYY HH:mm",
-                        labelAngle: -50
+                        // valueFormatString: "DD-MM-YYYY HH:mm",
+                        // labelAngle: -50
                     },
 
                     data: [{
                         type: "line",
-                        xValueType: "dateTime",
+                        color: "blue",
+                        // xValueType: "dateTime",
                         dataPoints: arr1,
                         showInLegend: true,
                         markerType: "triangle",
-                        legendText: "kecepatan"
+                        legendText: "kecepatan",
+                        toolTipContent: "Kecepatan: <b>{y} km/h </b>  <br>Waktu: {waktu}"
                     }, {
                         type: "line",
-                        xValueType: "dateTime",
+                        color: "red",
+                        // xValueType: "dateTime",
                         dataPoints: arr2,
                         showInLegend: true,
                         markerType: "cross",
                         legendText: "jarak",
+                        toolTipContent: "Jarak: <b>{y} cm </b>  <br>Waktu: {waktu}"
                     }, {
                         type: "line",
-                        xValueType: "dateTime",
+                        color: "green",
+                        // xValueType: "dateTime",
                         dataPoints: arr3,
                         showInLegend: true,
                         markerType: "square",
                         legendText: "berat",
+                        toolTipContent: "Berat: <b>{y} kg </b>  <br>Waktu: {waktu}"
                     }]
                 });
                 // console.log(dataArr);
                 chart.render();
+                var chart2 = new CanvasJS.Chart("chartContainer2", {
+                    zoomEnabled: true,
+
+                    title: {
+                        text: "Grafik Kecepatan Pukulan"
+                    },
+                    axisX: {
+                        title: "Data ke",
+                        // gridThickness: 2,
+                        // interval: 10,
+                        // intervalType: "hour",
+                        // valueFormatString: "DD-MM-YYYY HH:mm",
+                        // labelAngle: -50
+                    },
+
+                    data: [{
+                        type: "line",
+                        color: "blue",
+                        // xValueType: "dateTime",
+                        dataPoints: arr1,
+                        showInLegend: true,
+                        markerType: "triangle",
+                        legendText: "kecepatan" ,
+                        toolTipContent: "Kecepatan: <b>{y} km/h </b>  <br>Waktu: {waktu}"                   
+                    }]
+                });
+                // console.log(dataArr);
+                chart2.render();
+
+                var chart3 = new CanvasJS.Chart("chartContainer3", {
+                    zoomEnabled: true,
+
+                    title: {
+                        text: "Grafik Jarak Pukulan"
+                    },
+                    axisX: {
+                        title: "time",
+                        // gridThickness: 2,
+                        // interval: 10,
+                        // intervalType: "hour",
+                        // valueFormatString: "DD-MM-YYYY HH:mm",
+                        // labelAngle: -50
+                    },
+
+                    data: [ {
+                        type: "line",
+                        color: "red",
+                        // xValueType: "dateTime",
+                        dataPoints: arr2,
+                        showInLegend: true,
+                        markerType: "cross",
+                        legendText: "jarak",
+                        toolTipContent: "Jarak: <b>{y} cm </b>  <br>Waktu: {waktu}"
+                    }]
+                });
+                // console.log(dataArr);
+                chart3.render();
+
+                var chart4 = new CanvasJS.Chart("chartContainer4", {
+                    zoomEnabled: true,
+
+                    title: {
+                        text: "Grafik Berat Pukulan"
+                    },
+                    axisX: {
+                        title: "time",
+                        // gridThickness: 2,
+                        // interval: 10,
+                        // intervalType: "hour",
+                        // valueFormatString: "DD-MM-YYYY HH:mm",
+                        // labelAngle: -50
+                    },
+
+                    data: [  {
+                        type: "line",
+                        color: "green",
+                        // xValueType: "dateTime",
+                        dataPoints: arr3,
+                        showInLegend: true,
+                        markerType: "square",
+                        legendText: "berat",
+                        toolTipContent: "Berat: <b>{y} kg </b>  <br>Waktu: {waktu}",
+                    }]
+                });
+                // console.log(dataArr);
+                chart4.render();
             }
 
             function loadChart(id_user) {
@@ -288,18 +407,24 @@
                     let jarakArr = [];
                     for (let i = 0; i < jsonArr.length; i++) {
                         oneKecepatan = {};
-                        oneKecepatan['x'] = parseInt(jsonArr[i]['timestamp']) * 1000;
+                        // oneKecepatan['x'] = parseInt(jsonArr[i]['timestamp']) * 1000;                        
                         oneKecepatan['y'] = parseFloat(jsonArr[i]['kecepatan_pukulan']);
+                        oneKecepatan['label'] = parseInt(jsonArr[i]['nomor']);
+                        oneKecepatan['waktu'] = jsonArr[i]['waktu'];
                         kecepatanArr.push(oneKecepatan);
 
                         oneBerat = {};
-                        oneBerat['x'] = parseInt(jsonArr[i]['timestamp']) * 1000;
+                        // oneBerat['x'] = parseInt(jsonArr[i]['timestamp']) * 1000;
                         oneBerat['y'] = parseFloat(jsonArr[i]['berat_pukulan']);
+                        oneBerat['label'] = parseInt(jsonArr[i]['nomor']);
+                        oneBerat['waktu'] = jsonArr[i]['waktu'];
                         beratArr.push(oneBerat);
 
                         oneJarak = {};
-                        oneJarak['x'] = parseInt(jsonArr[i]['timestamp']) * 1000;
+                        // oneJarak['x'] = parseInt(jsonArr[i]['timestamp']) * 1000;
                         oneJarak['y'] = parseFloat(jsonArr[i]['jarak']);
+                        oneJarak['label'] = parseInt(jsonArr[i]['nomor']);
+                        oneJarak['waktu'] = jsonArr[i]['waktu'];
                         jarakArr.push(oneJarak);
 
                     }
